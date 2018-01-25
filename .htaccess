@@ -1,0 +1,19 @@
+RewriteEngine on
+
+# Home
+RewriteRule ^index.html$                                        /controller/home/index.php [QSA,L]
+
+# Form submission
+RewriteRule ^(.*)/submit/(new|edit|delete)/([0-9]+)?(/)?$       /service/$1_submit.php?submission=$2&id=$3 [QSA,L]
+
+# Report month setter/redirect service
+RewriteRule ^([0-9]{4})/([0-9]{2})/$                            /service/set_report_month.php?year=$1&month=$2 [QSA,L]
+
+# Settings
+RewriteRule ^settings/$                                         /controller/settings.php [QSA,L]
+
+# Projections and checkbook
+RewriteRule ^(.*)/(.*)/(.*)/(.*)/$                              /controller/$1/index.php?equity_type=$2&category=$3&item_record_id=$4 [QSA,L]
+RewriteRule ^(.*)/(.*)/(.*)/$                                   /controller/$1/index.php?equity_type=$2&category=$3 [QSA,L]
+RewriteRule ^(.*)/(.*)/$                                        /controller/$1/index.php?equity_type=$2 [QSA,L]
+RewriteRule ^(.*)/$                                             /controller/$1/index.php [QSA,L]
