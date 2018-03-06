@@ -1,5 +1,5 @@
 {if !isset($classes)}
-    {$classes = 'boogers'}
+    {$classes = 'form'}
 {/if}
 
 {foreach from=$transactions item=t}

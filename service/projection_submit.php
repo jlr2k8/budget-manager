@@ -19,7 +19,8 @@ $record['amount']               = !empty($_POST['amount']) ? filter_var($_POST['
 $record['notes']                = !empty($_POST['notes']) ? filter_var($_POST['notes'], FILTER_SANITIZE_STRING) : null;
 $record['id']                   = !empty($_GET['id']) ? filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT) : null;
 
-$record['item_id']              = \Data\Budget\Utilities\Item::getItemIdFromItem($record['item']);
+$item               = new \Data\Budget\Utilities\Item\Checkbook();
+$record['item_id']  = $item->getItemIdFromId($record['id']);
 
 
 if ($submit_type == 'new') {

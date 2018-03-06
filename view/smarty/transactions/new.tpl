@@ -1,7 +1,7 @@
 <form method="post" action="/{strtolower($transaction_type)}/submit/{$submit_type}/">
     <tr class="form-group">
         <td>
-            {$select_options}
+            {$select_options_blank}
         </td>
         <td>
             <input name="{$date_field_name}" type="date" class="form-control" required="required" />

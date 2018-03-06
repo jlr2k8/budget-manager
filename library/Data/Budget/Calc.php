@@ -111,9 +111,9 @@ class Calc
      * @param bool $category
      * @return string
      */
-    public function getRollOver($equity_type = false, $category = false)
+    public function getRollOver($equity_type = false, $category = false, $date = false, $recurse = true)
     {
-        $date       = date('Y-m-d', strtotime($_SESSION['report_month']));
+        $date       = date('Y-m-d', strtotime(empty($date) ? $_SESSION['report_month'] : $date));
         $last_month = date('Y-m-d', strtotime($date . ' first day of previous month'));
 
         $projection = new Calc\Projection();
@@ -123,6 +123,11 @@ class Calc
         $last_month_actual      = $checkbook->getAmount($last_month, $equity_type, $category);
 
         $result                 = $this->getRemaining($last_month_projected, $last_month_actual, $equity_type);
+
+        if ($recurse) {
+            $last_month_rollover    = $checkbook->getRollOver($equity_type, $category, $last_month, false);
+            $result                 = ($result+$last_month_rollover);
+        }
 
         return empty($result) ? '0.00' : $result;
     }

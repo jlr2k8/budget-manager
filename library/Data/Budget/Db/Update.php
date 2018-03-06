@@ -44,16 +44,17 @@ class Update extends \Data\Budget\Db
             UPDATE item SET
               _category_id = ?,
               item = ?
+            WHERE __id = ?
         ';
 
         $bind = [
             $update['category'],
-            $update['item']
+            $update['item'],
+            $record['item_id'],
         ];
 
-        $db = new \Data\PdoMySql($sql, $bind);
-
-        $update['item_id'] = self::getUpdateIdByItem($record['item']);
+        $db                 = new \Data\PdoMySql($sql, $bind);
+        $update['item_id']  = $record['item_id'];
 
         if ($db->run()) {
 

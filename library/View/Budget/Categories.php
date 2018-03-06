@@ -20,17 +20,19 @@ class Categories
 
     /**
      * @param \View\SmartyLoader $smarty
+     * @param $selected_category_id
      * @return string
      */
-    public static function selectOptions(\View\SmartyLoader $smarty)
+    public static function selectOptions(\View\SmartyLoader $smarty, $selected_category_id = null)
     {
         $categories = \Data\Budget\Utilities\Category::getCategories();
         $options    = [];
 
         foreach ($categories as $key => $val) {
 
-            $option['category_id']      = $val['id'];
-            $option['category_label']   = $val['category_label'];
+            $option['category_id']          = $val['id'];
+            $option['category_label']       = $val['category_label'];
+            $option['selected_category_id'] = $selected_category_id;
 
             $options[] = $option;
         }

@@ -47,6 +47,9 @@ class Checkbook
             $formatted['show_edit']                     = true;
             $formatted['show_delete']                   = true;
 
+            $category_id = \Data\Budget\Utilities\Category::getCategoryIdByLabel($val['category_label']);
+            $smarty->assign('select_options', Categories::selectOptions($smarty, $category_id));
+
             $formatted_row[] = $formatted;
         }
 
@@ -55,7 +58,7 @@ class Checkbook
         $smarty->assign('transaction_type', 'Checkbook');
         $smarty->assign('report_month', date('F, Y', strtotime($_SESSION['report_month'])));
         $smarty->assign('transactions', $formatted_row);
-        $smarty->assign('select_options', Categories::selectOptions($smarty));
+        $smarty->assign('select_options_blank', Categories::selectOptions($smarty));
 
         return $smarty->fetch('transactions/table_wrapper.tpl');
     }

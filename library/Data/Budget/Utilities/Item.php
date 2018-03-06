@@ -1,27 +1,36 @@
 <?php
-
+/**
+ * Created by Josh L. Rogers
+ * Copyright (c) 2018 All Rights Reserved.
+ * 3/5/2018
+ *
+ * Item.php
+ *
+ **/
 
 
 namespace Data\Budget\Utilities;
 
 class Item
 {
+    public $table;
+
     public function __construct()
     {
     }
 
 
     /**
-     * @param $item
+     * @param $id
      * @return array|bool
      */
-    public static function getItemIdFromItem($item)
+    public function getItemIdFromId($id)
     {
         $sql = '
-            SELECT __id AS id FROM item WHERE item = ?;
+            SELECT _item_id AS item_id FROM ' . $this->table . ' item WHERE __id = ?;
         ';
 
-        $db = new \Data\PdoMySql($sql, [$item]);
+        $db = new \Data\PdoMySql($sql, [$id]);
 
         return $db->fetch();
     }
