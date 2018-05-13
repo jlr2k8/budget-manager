@@ -12,6 +12,7 @@
 
 define('CURRENT_MONTH', date('Y-m-d', strtotime('first day of this month')));
 define('LAST_MONTH', date('Y-m-d', strtotime('first day of previous month')));
+define('ZERO_AMOUNT', '0.00');
 
 // MySQL
 define ('MYSQL_SERVER', $_SERVER['MYSQL_SERVER']);
@@ -33,3 +34,6 @@ if (!isset($_SESSION['report_month']))
 
 // Projection rollover
 define('ROLLOVER_PROJECTIONS_ON_NEW_MONTH_LOAD', true);
+
+// Nav previous month select range
+define('PREVIOUS_MONTH_SELECT_RANGE', 4);

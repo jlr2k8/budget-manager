@@ -30,7 +30,7 @@ class ProjectionRollovers
         $projected_income   = $this->projection->getProjection(CURRENT_MONTH, 'income');
         $projected_expenses = $this->projection->getProjection(CURRENT_MONTH, 'expense');
 
-        return ($projected_income == '0.00' && $projected_expenses == '0.00');
+        return ($projected_income == ZERO_AMOUNT && $projected_expenses == ZERO_AMOUNT);
     }
 
 

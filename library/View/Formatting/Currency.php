@@ -32,5 +32,10 @@ class Currency
 
         return ($dollar_sign ? '$' : null) . number_format($value, (int)2, '.', $thousands_separator);
     }
+
+    public static function is_zero($value)
+    {
+        return (empty($value) || $value == ZERO_AMOUNT);
+    }
 }
 

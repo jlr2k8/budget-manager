@@ -23,7 +23,7 @@ class DateSelect
      * @param int $n
      * @return array
      */
-    public function getRange($n = 3)
+    public function getRange($n = PREVIOUS_MONTH_SELECT_RANGE)
     {
         $dates = [];
 

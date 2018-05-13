@@ -76,7 +76,7 @@ class Calc
 
         $result = $db->fetch();
 
-        return empty($result) ? '0.00' : $result;
+        return empty($result) ? ZERO_AMOUNT : $result;
     }
 
 
@@ -95,7 +95,7 @@ class Calc
      * @param string $equity_type
      * @return string
      */
-    public function getRemaining($projected = '0.00', $actual = '0.00', $equity_type = 'income')
+    public function getRemaining($projected = ZERO_AMOUNT, $actual = ZERO_AMOUNT, $equity_type = 'income')
     {
         $remaining = $projected-$actual;
 
@@ -111,7 +111,7 @@ class Calc
      * @param bool $category
      * @return string
      */
-    public function getRollOver($equity_type = false, $category = false, $date = false, $recurse = true)
+    public function getRollOver($equity_type = false, $category = false, $date = false, $recurse_amount = 0)
     {
         $date       = date('Y-m-d', strtotime(empty($date) ? $_SESSION['report_month'] : $date));
         $last_month = date('Y-m-d', strtotime($date . ' first day of previous month'));
@@ -123,13 +123,15 @@ class Calc
         $last_month_actual      = $checkbook->getAmount($last_month, $equity_type, $category);
 
         $result                 = $this->getRemaining($last_month_projected, $last_month_actual, $equity_type);
+        $rollover_amount        = ($result+$recurse_amount);
+
+        $recurse = (!\View\Formatting\Currency::is_zero($last_month_projected) || !\View\Formatting\Currency::is_zero($last_month_actual));
 
         if ($recurse) {
-            $last_month_rollover    = $checkbook->getRollOver($equity_type, $category, $last_month, false);
-            $result                 = ($result+$last_month_rollover);
+            return $checkbook->getRollOver($equity_type, $category, $last_month, $rollover_amount);
         }
 
-        return empty($result) ? '0.00' : $result;
+        return empty($rollover_amount) ? ZERO_AMOUNT : $rollover_amount;
     }
 
 
